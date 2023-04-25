@@ -53,7 +53,7 @@ function populateGrid() {
 
         console.log(obj)
 
-        sudoku = obj.unsolved;
+        sudoku = obj.startingSudoku;
 
         squaresList = Array.from(squares);
         squaresList.map((square, index) => {
@@ -72,6 +72,41 @@ function populateGrid() {
 }
 
 
+function checkAnswer() {
+
+    let valid = true;
+
+    //check rows for dupes
+    //loop through the start of each row
+    for (let i=0; i < squares.length; i+=9) {
+
+        const row = [];
+
+        for (let n=i; n < (i+9); n++) {
+
+            row.push(squares[n].textContent)
+
+        }
+
+        //check dupes in row
+        values = row.filter(value => value !== "")
+        if (new Set(values).size !== values.length) {
+            valid = false;
+        }
+
+    }
+
+
+    //check columns for dupes
+
+    //check 3x3 cells for dupes
+
+    //trigger correct or incorrect response function
+
+}
+
+
+
 //backend url
 const url = 'http://localhost:5147/api/sudoku'
 
@@ -88,4 +123,10 @@ squares.forEach(square => {
 
 //event listener for number input
 window.addEventListener("keydown", enterNumber);
+
+//event listener for submit
+const submitButton = document.querySelector('.check_answer');
+submitButton.addEventListener("click", checkAnswer);
+
+
  
