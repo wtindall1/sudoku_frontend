@@ -75,34 +75,114 @@ function populateGrid() {
 function checkAnswer() {
 
     let valid = true;
+    let full = true;
 
-    //check rows for dupes
-    //loop through the start of each row
+    //check columns for dupes
+    //loop through the start of each column
     for (let i=0; i < squares.length; i+=9) {
 
-        const row = [];
+        const column = [];
 
         for (let n=i; n < (i+9); n++) {
 
-            row.push(squares[n].textContent)
-
+            column.push(squares[n].textContent);
         }
 
-        //check dupes in row
-        values = row.filter(value => value !== "")
+        //check dupes in column
+        values = column.filter(value => value !== "")
         if (new Set(values).size !== values.length) {
             valid = false;
         }
 
     }
 
-
     //check columns for dupes
+    //loop through start of each column
+    for (let i=0; i < 9; i++) {
+
+        
+        const column = []
+        
+        //loop through each column
+        for (let n=i; n < squares.length; n+=9) {
+
+            column.push(squares[n].textContent);
+        }
+
+        //check dupes in column 
+        values = column.filter(value => value !== "") //exclude empty
+        if (new Set(values).size !== values.length) {
+            valid = false;
+        }
+    }
+
 
     //check 3x3 cells for dupes
+    //loop through start of each cell
+    cellStarts = [0,3,6,27,30,33,54,57,60]
+    cellStarts.forEach(i => {
+
+        cell = []
+
+        //loop through start of each row within cell
+        for (let j=i; j < (i + 19); j+=9 ) {
+
+            //loop through each row within the cell
+            for (let n=j; n < (j+3); n++) {
+
+                cell.push(squares[n].textContent);
+
+            }
+        }
+        
+        //check dupes in 3x3 cell 
+        values = cell.filter(value => value !== "") //exclude empty
+        if (new Set(values).size !== values.length) {
+            valid = false;
+        }
+
+    })
+            
+
+
+
+    //check if the board is full
+    squares.forEach(square => {
+        if (square.textContent == "") {
+            full = false;
+        }
+    });
+
+    console.log(valid, full);
 
     //trigger correct or incorrect response function
+    if (valid && full) {
+        correct();
+    } else if (!full) {
+        incomplete();
+    } else if (!valid){
+        invalid();
+    };
 
+}
+
+function correct() {
+
+    //give board a green glow
+    //pop up with congrats & play again button
+        //if pressed, repopulates grid and gets rid of green glow
+
+}
+
+function incomplete() {
+
+    //add colour (green?) to empty cells for 1-2s
+}
+
+function invalid() {
+
+    //edit checkAnswer function to store the duplicate locations
+    //make invalid cells red for 1-2s
 }
 
 

@@ -33,7 +33,6 @@ body {
 
 .board {
     border-style: solid;
-    border-width: 2px;
     border-color: black;
     width: fit-content;
     height: fit-content;
@@ -42,15 +41,31 @@ body {
     grid-template-columns: repeat(9, 1fr);
 }
 
+
 .square {
-    border-style: solid;
-    border-width: 1px;
+    border: solid black 1px;
+    box-sizing: border-box;
     height: 50px;
     width: 50px;
     text-align: center;
     /* vertically centers text */
     line-height: 50px;
+    
 }
+
+.cell_bottom {
+    border-bottom-width: 3px;
+}
+
+.cell_right {
+    border-right-width: 3px;
+}
+
+
+
+
+
+
 
 .selected {
     background-color: rgb(201, 229, 238);
